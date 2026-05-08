@@ -1,18 +1,11 @@
-import { pipeline } from '@xenova/transformers';
+import { HfInference } from '@huggingface/inference';
 
-let embedder: any = null;
-
-async function getEmbedder() {
-  if (!embedder) {
-    console.log('[Embed] Loading local embedding model (all-MiniLM-L6-v2)...');
-    embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
-    console.log('[Embed] Model loaded successfully');
-  }
-  return embedder;
-}
+const hf = new HfInference(process.env.HF_API_KEY);
 
 export async function embedText(text: string): Promise<number[]> {
-  const embedder = await getEmbedder();
-  const output = await embedder(text, { pooling: 'mean', normalize: true });
-  return Array.from(output.data);
+  const result = await hf.featureExtraction({
+    model: 'sentence-transformers/all-MiniLM-L6-v2',
+    inputs: text,
+  });
+  return Array.from(result as number[]);
 }

@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
 import { embedText } from './embed';
 
 /**
@@ -12,7 +12,7 @@ export interface KnowledgeResult {
 
 export async function retrieve(query: string, limit = 5): Promise<KnowledgeResult[]> {
   try {
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     console.log('[RAG] Query:', query);
 
     // Generate embedding for the user query
