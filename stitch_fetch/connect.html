@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ORBIT - Connect</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "surface-tint": "#00dbe7",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-secondary-container": "#bab8b7",
+                        "surface-container-lowest": "#0c0e14",
+                        "surface-dim": "#12131a",
+                        "outline": "#849495",
+                        "inverse-primary": "#00696f",
+                        "on-secondary-fixed-variant": "#474646",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-tertiary": "#313030",
+                        "on-primary-container": "#006a71",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-surface": "#e2e1eb",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#313030",
+                        "surface": "#12131a",
+                        "surface-container-high": "#282a31",
+                        "background": "#12131a",
+                        "tertiary": "#faf6f6",
+                        "surface-container-highest": "#33343c",
+                        "secondary-container": "#4a4949",
+                        "on-background": "#e2e1eb",
+                        "primary-fixed": "#74f5ff",
+                        "on-error": "#690005",
+                        "surface-container": "#1e1f26",
+                        "tertiary-container": "#dddad9",
+                        "primary": "#e1fdff",
+                        "secondary-fixed": "#e5e2e1",
+                        "outline-variant": "#3a494b",
+                        "on-primary-fixed": "#002022",
+                        "on-tertiary-fixed-variant": "#474646",
+                        "on-surface": "#e2e1eb",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#1a1b22",
+                        "tertiary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-container": "#615f5f",
+                        "tertiary-fixed-dim": "#c9c6c5",
+                        "surface-variant": "#33343c",
+                        "on-primary": "#00363a",
+                        "inverse-on-surface": "#2f3037",
+                        "secondary": "#c8c6c5",
+                        "on-surface-variant": "#b9cacb",
+                        "error-container": "#93000a",
+                        "primary-container": "#00f2ff",
+                        "surface-bright": "#383940"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "grid-columns": "12",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin": "64px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Space Grotesk"],
+                        "h2": ["Space Grotesk"],
+                        "h3": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h1": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "h2": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "h3": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(18, 18, 18, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Floating label logic for minimalist forms */
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            transform: translateY(-20px);
+            font-size: 10px;
+            color: #00f2ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 border-b border-white/10 bg-[#121212]/40 backdrop-blur-[30px] shadow-[0_30px_60px_rgba(0,0,0,0.8)] transition-all cubic-bezier(0.4,0,0.2,1) duration-500">
+<div class="flex justify-between items-center px-16 h-20 max-w-[1440px] mx-auto">
+<!-- Brand Logo -->
+<div class="font-['Space_Grotesk'] text-2xl font-black tracking-tighter text-[#00f2ff] drop-shadow-[0_0_10px_rgba(0,242,255,0.8)]">
+                ORBIT
+            </div>
+<!-- Navigation Links -->
+<div class="hidden md:flex space-x-8 h-full items-center">
+<a class="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-white transition-colors duration-300 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]" href="#">About</a>
+<a class="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-white transition-colors duration-300 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]" href="#">Offerings</a>
+<a class="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-white transition-colors duration-300 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]" href="#">Stories</a>
+<a class="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-[#00f2ff] border-t-2 border-[#00f2ff] pt-1 h-full flex items-center" href="#">Connect</a>
+<a class="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-white transition-colors duration-300 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]" href="#">Impact</a>
+</div>
+<!-- Trailing Icons -->
+<div class="flex space-x-4">
+<span class="material-symbols-outlined text-white/60 hover:text-[#00f2ff] cursor-pointer transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]" data-icon="language">language</span>
+<span class="material-symbols-outlined text-white/60 hover:text-[#00f2ff] cursor-pointer transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]" data-icon="settings">settings</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center relative pt-20 pb-16 px-6">
+<!-- Shrunken Globe Background Element (Bottom Left) -->
+<div class="absolute bottom-0 left-[-100px] w-[500px] h-[500px] opacity-30 pointer-events-none z-0 mix-blend-screen">
+<img alt="Globe graphic" class="w-full h-full object-cover rounded-full filter contrast-125 saturate-50" data-alt="A highly detailed, luminous cyan wireframe globe emerging from a pitch-black deep space void. The globe features precise, minimalist longitudinal and latitudinal lines with glowing intersection nodes, embodying a high-tech, cinematic aesthetic. It is positioned as if seen from a low orbital perspective, casting a soft, emissive cyan ambient light against the surrounding extreme negative space, evoking a sense of calm authority and cutting-edge reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvuRrQ_HTQX-xcW5RUfZ5ivXzT7O-pNvUTXRsHtFkGPwEtkcAep5pF0ywgTXb2R0cZILDbCDmFXZhdH6lxY9YYjdM96x_Dn4T2CPG_pYxwZibA-nUHsYVKPLBoPS07cRLLJwlb5ebymg332MT8GY480oVUEQCkgGzQNy_sutVrkuPvSjKYswOi_yGGeV4A2k85_PjYiB0zNpa-Sf3VYbdws93zHkbAubYTSzjSDgVKC0rN5Lm0rFttfcxUKAjwkAFVAeEJniEIcgI"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-background via-transparent to-background rounded-full"></div>
+</div>
+<!-- Contact Form Container (Glassmorphism) -->
+<div class="glass-panel w-full max-w-[600px] p-12 md:p-16 z-10 relative mt-8">
+<div class="mb-12">
+<h1 class="font-h2 text-h2 text-on-surface mb-4">INITIALIZE COMM-LINK</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Transmit your coordinates and inquiry. Our orbital command team will intercept and respond.</p>
+</div>
+<form class="space-y-10">
+<!-- Name Field -->
+<div class="input-group relative">
+<input class="block w-full bg-transparent border-0 border-b border-white/20 text-on-surface font-body-md py-2 px-0 focus:ring-0 focus:border-primary-container transition-colors peer" id="designation" placeholder=" " required="" type="text"/>
+<label class="absolute top-2 left-0 font-label-caps text-label-caps text-white/40 uppercase transition-all duration-300 pointer-events-none" for="designation">Operator Designation (Name)</label>
+</div>
+<!-- Email Field -->
+<div class="input-group relative">
+<input class="block w-full bg-transparent border-0 border-b border-white/20 text-on-surface font-body-md py-2 px-0 focus:ring-0 focus:border-primary-container transition-colors peer" id="frequency" placeholder=" " required="" type="email"/>
+<label class="absolute top-2 left-0 font-label-caps text-label-caps text-white/40 uppercase transition-all duration-300 pointer-events-none" for="frequency">Comm Frequency (Email)</label>
+</div>
+<!-- Message Field -->
+<div class="input-group relative">
+<textarea class="block w-full bg-transparent border-0 border-b border-white/20 text-on-surface font-body-md py-2 px-0 focus:ring-0 focus:border-primary-container transition-colors peer resize-none" id="transmission" placeholder=" " required="" rows="3"></textarea>
+<label class="absolute top-2 left-0 font-label-caps text-label-caps text-white/40 uppercase transition-all duration-300 pointer-events-none" for="transmission">Transmission Payload (Message)</label>
+</div>
+<!-- Submit Button -->
+<div class="pt-6">
+<button class="w-full bg-primary-container text-black font-label-caps text-label-caps py-4 px-8 tracking-widest hover:shadow-[0_0_20px_rgba(0,242,255,0.6)] hover:bg-[#74f5ff] transition-all duration-300 flex items-center justify-center space-x-2" type="button">
+<span>TRANSMIT SIGNAL</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 border-t border-white/5 bg-transparent opacity-50 hover:opacity-100 ease-in-out duration-300 z-10 relative">
+<div class="flex flex-col md:flex-row justify-between items-center px-16 max-w-[1440px] mx-auto">
+<div class="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/40 mb-4 md:mb-0">
+                © 2024 ORBIT DEEP SPACE EXPLORATION
+            </div>
+<div class="flex space-x-8">
+<a class="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors" href="#">Privacy Policy</a>
+<a class="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors" href="#">Terms of Service</a>
+<a class="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors" href="#">Mission Log</a>
+</div>
+</div>
+</footer>
+</body></html>
