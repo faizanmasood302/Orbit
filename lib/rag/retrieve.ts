@@ -5,7 +5,12 @@ import { embedText } from './embed';
  * Perform a semantic search against the knowledge_base using vector similarity.
  * Returns the most relevant chunks with a real similarity score (0‑1).
  */
-export async function retrieve(query: string, limit = 5) {
+export interface KnowledgeResult {
+  content: string;
+  similarity: number;
+}
+
+export async function retrieve(query: string, limit = 5): Promise<KnowledgeResult[]> {
   try {
     const supabase = await createClient();
     console.log('[RAG] Query:', query);
@@ -40,7 +45,7 @@ export async function retrieve(query: string, limit = 5) {
     }));
 
     console.log('[RAG] Results with similarity:');
-    results.forEach((r, i) => {
+    results.forEach((r: KnowledgeResult, i: number) => {
       console.log(`  [${i}] ${(r.similarity * 100).toFixed(2)}% - ${r.content.substring(0, 50)}...`);
     });
 

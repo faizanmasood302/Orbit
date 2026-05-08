@@ -1,10 +1,10 @@
 'use client';
 
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { useOrbitStore } from '@/store/orbit';
+import { useGlobeStore } from '@/store/orbit';
 
 export function CallToAction() {
-  const spinGlobeTo = useOrbitStore((s) => s.spinGlobeTo);
+  const spinGlobeTo = useGlobeStore((s) => s.spinGlobeTo);
 
   return (
     <section className="relative z-20 py-24 bg-[var(--orbit-bg)] border-t border-white/5 overflow-hidden">

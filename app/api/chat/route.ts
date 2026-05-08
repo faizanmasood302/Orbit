@@ -28,10 +28,10 @@ export async function POST(req: Request) {
       // Sort results by similarity score (already sorted by retrieve.ts)
       if (results && results.length > 0) {
         // Use top 3 most relevant results
-        const topResults = results.slice(0, 3).map(r => r.content);
+        const topResults = results.slice(0, 3).map((r: { content: string; similarity: number }) => r.content);
         contextStr = topResults.join('\n\n');
         console.log('[API] Context (sorted by similarity):', contextStr.substring(0, 100));
-        console.log('[API] Similarity scores:', results.map(r => r.similarity.toFixed(3)));
+        console.log('[API] Similarity scores:', results.map((r: { content: string; similarity: number }) => r.similarity.toFixed(3)));
       } else {
         console.log('[API] No relevant results found (above similarity threshold)');
         contextStr = 'No relevant information found.';

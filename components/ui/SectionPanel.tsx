@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, type ReactNode } from 'react';
-import { useOrbitStore } from '@/store/orbit';
+import { useGlobeStore } from '@/store/orbit';
 import { X } from 'lucide-react';
 
 interface SectionPanelProps {
@@ -12,7 +12,7 @@ interface SectionPanelProps {
 
 export function SectionPanel({ title, onBack, children }: SectionPanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const setSection = useOrbitStore((s) => s.spinGlobeTo);
+  const setSection = useGlobeStore((s) => s.spinGlobeTo);
 
   useEffect(() => {
     if (panelRef.current) {

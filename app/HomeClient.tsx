@@ -11,7 +11,7 @@ import { Features } from '@/components/sections/Features';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { CallToAction } from '@/components/sections/CallToAction';
 import { Footer } from '@/components/sections/Footer';
-import { useOrbitStore } from '@/store/orbit';
+import { useGlobeStore, useThemeStore } from '@/store/orbit';
 
 const OrbitScene = dynamic(
   () => import('@/components/3d/OrbitScene').then((m) => m.OrbitScene),
@@ -33,9 +33,9 @@ interface Props {
 }
 
 export default function HomeClient({ content }: Props) {
-  const currentSection = useOrbitStore((s) => s.currentSection);
-  const spinGlobeTo = useOrbitStore((s) => s.spinGlobeTo);
-  const theme = useOrbitStore((s) => s.theme);
+  const currentSection = useGlobeStore((s) => s.currentSection);
+  const spinGlobeTo = useGlobeStore((s) => s.spinGlobeTo);
+  const theme = useThemeStore((s) => s.theme);
   
   useEffect(() => {
     document.documentElement.dataset.theme = theme;

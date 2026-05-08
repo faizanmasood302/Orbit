@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react';
 import { Sun, Moon } from 'lucide-react';
-import { useOrbitStore } from '@/store/orbit';
+import { useThemeStore } from '@/store/orbit';
 
 export function ThemeToggle() {
-  const theme       = useOrbitStore((s) => s.theme);
-  const toggleTheme = useOrbitStore((s) => s.toggleTheme);
+  const theme       = useThemeStore((s) => s.theme);
+  const toggleTheme = useThemeStore((s) => s.toggleTheme);
 
   // Sync data-theme attribute + localStorage on every change
   useEffect(() => {

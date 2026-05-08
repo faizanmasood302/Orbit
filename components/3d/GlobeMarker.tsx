@@ -4,7 +4,8 @@ import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
-import { useOrbitStore, type Section } from '@/store/orbit';
+import { useGlobeStore } from '@/store/orbit';
+import type { Section } from '@/store/modules/globe';
 
 interface GlobeMarkerProps {
   position: [number, number, number];
@@ -17,8 +18,8 @@ export function GlobeMarker({ position, label, section, color = '#7C3AED' }: Glo
   const meshRef  = useRef<THREE.Mesh>(null);
   const ringRef  = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
-  const spinGlobeTo    = useOrbitStore((s) => s.spinGlobeTo);
-  const isTransitioning = useOrbitStore((s) => s.isTransitioning);
+  const spinGlobeTo    = useGlobeStore((s) => s.spinGlobeTo);
+  const isTransitioning = useGlobeStore((s) => s.isTransitioning);
 
   useFrame((_, delta) => {
     if (!meshRef.current || !ringRef.current) return;
