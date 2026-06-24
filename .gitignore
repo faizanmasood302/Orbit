@@ -39,4 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-"opencode.json" 
+"opencode.json"
+.playwright-mcp/
+stitch_orbit_website_design/
+__pycache__/
+*.pyc
+social-cta-section.png 

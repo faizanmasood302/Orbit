@@ -1,111 +1,187 @@
-import Link from 'next/link';
-import { Chatbot } from '@/components/ui/Chatbot';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { AgentChat } from '@/components/agent/AgentChat';
+import { ScrollReveal } from '@/components/anim/ScrollReveal';
+import { CountUp } from '@/components/anim/CountUp';
+import { Icon } from '@/components/ui/Icon';
 
 export default function About() {
   return (
-    <div className="bg-background text-on-background min-h-screen relative overflow-hidden flex flex-col">
-      {/* Ambient Space Background Effect */}
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#00f2ff]/5 via-background to-background" />
-
-      {/* TopNavBar */}
-      <nav className="fixed top-0 w-full z-50 bg-[#121212]/40 backdrop-blur-[30px] border-b border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] transition-all cubic-bezier(0.4,0,0.2,1) duration-500">
-        <div className="flex justify-between items-center px-16 h-20 max-w-[1440px] mx-auto">
-          <Link href="/" className="text-2xl font-black tracking-tighter text-[#00f2ff] drop-shadow-[0_0_10px_rgba(0,242,255,0.8)] font-h1">
-            ORBIT
-          </Link>
-          <div className="hidden md:flex items-center space-x-12">
-            <Link href="/about" className="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-[#00f2ff] border-t-2 border-[#00f2ff] pt-1 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              About
-            </Link>
-            <Link href="/offerings" className="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              Offerings
-            </Link>
-            <Link href="/stories" className="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              Stories
-            </Link>
-            <Link href="/connect" className="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              Connect
-            </Link>
-            <Link href="/impact" className="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              Impact
-            </Link>
-            <Link href="#" className="font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              Impact
-            </Link>
-          </div>
-          <div className="flex items-center space-x-6 text-[#00f2ff]">
-            <button className="hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              <span className="material-symbols-outlined">language</span>
-            </button>
-            <button className="hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-colors duration-300">
-              <span className="material-symbols-outlined">settings</span>
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content Area */}
-      <main className="flex-grow relative z-10 pt-32 pb-24 px-margin max-w-container-max mx-auto w-full flex flex-col justify-center min-h-screen">
-        {/* Shrunken Globe Visualization */}
-        <div className="absolute bottom-12 left-12 w-64 h-64 rounded-full border border-white/5 bg-[#121212]/40 backdrop-blur-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.8)] overflow-hidden z-0 hidden lg:block opacity-50">
-          <img 
-            alt="Globe graphic" 
-            className="w-full h-full object-cover opacity-30 mix-blend-screen" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQMODG1Ptmwytxpell-RGON4ij5Q7zpl89ayLwGO80dYfhNJOxZ5VCQ2yJXyS0Rg-JLh-kVzOaNdGQUN8W5NaBAseZl6IwMhV5oWXpMJMxwRLVZzW4nurFaiiKqMSUAJEUg7j8uxwDxOAqDXSVL1B3X26_WMfBCHBQeNIQRWuf2QaUPcWbHFdkov01gL2EZ-kWp0Jjx3z7KsojWQathm9kEffa3OJHpO83huKrK9jCTsZhqHyQjWGzCuKMkb13YKfIz6dbh-x4gb8"
-          />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter relative z-10 items-center">
-          {/* Left Column: Bold Headline */}
-          <div className="lg:col-span-5 lg:col-start-2 z-10 mb-12 lg:mb-0">
-            <div className="inline-flex flex-col">
-              <span className="font-label-caps text-label-caps text-primary-container mb-6 tracking-[0.2em] opacity-80 uppercase relative">
-                <span className="absolute -left-8 top-1/2 w-4 h-px bg-primary-container"></span>
-                Mission Directive
-              </span>
-              <h1 className="font-h1 text-h1 text-on-background uppercase relative">
-                OUR<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-on-background to-surface-variant">COSMOS</span>
-              </h1>
+    <div className="bg-surface text-on-surface min-h-screen">
+      <Navbar />
+      <main className="relative pt-32 pb-20 overflow-hidden">
+        <div className="orbital-glow absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full -z-10" />
+        <div className="orbital-glow absolute top-1/2 -left-40 w-[600px] h-[600px] rounded-full -z-10" />
+        <div className="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center relative z-10">
+          <ScrollReveal>
+            <div>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-label-md text-label-md mb-6">
+              <Icon name="verified" className="text-[18px]" />
+              OUR CORE MISSION
+            </span>
+            <h1 className="font-display-lg text-display-lg mb-8">
+              Organizing Your Ideas For Your <span className="text-gradient">Next Venture</span>
+            </h1>
+            <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
+              Orbit was founded on the belief that every visionary idea deserves a structured path to reality. We bridge the gap between abstract thought and concrete execution through advanced digital strategy.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a href="/contact" className="px-8 py-4 bg-primary text-on-primary rounded-xl font-headline-md text-label-md flex items-center gap-3 hover:shadow-2xl transition-all">
+                <Icon name="play_circle" />
+                Join Our Live Session
+              </a>
+              <a href="/services" className="px-8 py-4 glass-panel rounded-xl font-headline-md text-label-md border-primary/20 hover:border-primary transition-all">
+                View Roadmap
+              </a>
             </div>
-          </div>
-
-          {/* Right Column: Sleek Paragraph */}
-          <div className="lg:col-span-5 lg:col-start-7 z-10">
-            <div className="bg-[#121212]/40 backdrop-blur-[20px] border border-white/10 rounded-DEFAULT p-10 hover:border-primary-container transition-colors duration-500 shadow-[0_30px_60px_rgba(0,0,0,0.8)] group">
-              <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">
-                We are charting the unknown, moving beyond the boundaries of standard atmosphere to pioneer deep space ecosystems. Our mission is not merely exploration, but the establishment of permanent, sustainable infrastructure in the void.
-              </p>
-              <p className="font-body-md text-body-md text-on-secondary-container mb-10 opacity-70">
-                Leveraging next-generation propulsion and zero-gravity architectural frameworks, ORBIT connects humanity to the stars, engineering a future where distance is no longer a barrier.
-              </p>
-              <button className="bg-primary-container text-[#050505] font-label-caps text-label-caps px-8 py-4 rounded-DEFAULT uppercase hover:shadow-[0_0_15px_rgba(0,242,255,0.8)] transition-shadow duration-300 inline-flex items-center space-x-3">
-                <span>Explore Blueprint</span>
-                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-              </button>
+            </div>
+          </ScrollReveal>
+          <div className="relative h-[600px] flex items-center justify-center">
+            <div className="relative z-10 floating">
+              <div className="w-[400px] h-[400px] glass-panel rounded-full overflow-hidden">
+                <img
+                  className="w-full h-full object-cover"
+                  alt="Abstract 3D glass sculpture"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe3U3BbR6ImbSEmYbxF1MIhKIkpOYNPV99vxxGPyZc_0znXYkKkVc83JOeASrLewJzmdQHQqHFkvnWNsuL1je6qFh_wiUsQ50FG4I5KD1ZO18n8uiwYmib9-MaMrURNSBgi90CuMrRTYpKbfVQBTtbPGTTRedqfmm1XpXJC7-uPYZKpRVrNEPgu69aFdmXuuivxkO1LJkQNc0RXog4Dd-vmoJB2O3LMw1QMRXSfTU1318C_CuEWVpoqvk-UqQDXVaul1HahDosWPw"
+                />
+              </div>
+              <div className="absolute -right-10 top-1/4 glass-panel px-4 py-2 rounded-lg flex items-center gap-2 border-white/50">
+                <Icon name="insights" className="text-primary" fill />
+                <span className="text-label-md">Strategic Vision</span>
+              </div>
+              <div className="absolute -left-5 bottom-1/4 glass-panel px-4 py-2 rounded-lg flex items-center gap-2 border-white/50">
+                <Icon name="rocket_launch" className="text-secondary" fill />
+                <span className="text-label-md">Venture Growth</span>
+              </div>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-8 bg-transparent border-t border-white/5 opacity-50 hover:opacity-100 transition-opacity ease-in-out duration-300 relative z-20">
-        <div className="flex flex-col md:flex-row justify-between items-center px-16 max-w-[1440px] mx-auto">
-          <div className="mb-4 md:mb-0">
-            <p className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/40">
-              © 2024 ORBIT DEEP SPACE EXPLORATION
+      <section className="py-20 bg-surface-container-low">
+        <div className="max-w-container-max mx-auto px-margin-desktop">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="font-display-lg text-headline-lg mb-4">Our Evolutionary Journey</h2>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">From a small studio in 2018 to a global technology powerhouse, Orbit has always prioritized innovation over convention.</p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal stagger={0.15} className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[600px]">
+            <div className="md:col-span-2 glass-panel rounded-lg p-10 flex flex-col justify-end relative overflow-hidden group">
+              <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity">
+                <img
+                  className="w-full h-full object-cover"
+                  alt="Tech workspace"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZma-obZp4aYAmulgX5OKqsBXKh_076lZtiFxOFoQGfycWeb2t1gWZN___IYgaSU0gZ6hsuLdJLwXXnvO5Nym2YrER19rV-CppmwKtsAd0zc0VD8MI7RSQIKG_J8YGoOsRSTAZQP3uLqDFG-596qsnaNDOb6bkaV1pH3nHMSLx3M23zhpPFSMw1ycDZ49kR7YM5ebaOSLlyeepgx731bL77ViwjSKgTUEhZXuFueZjq33k8HX4jcBtcwDLYy_7gsSHosBgCJppqRc"
+                />
+              </div>
+              <div className="relative z-10">
+                <span className="text-primary font-bold text-headline-md">2018—2020</span>
+                <h3 className="font-display-lg text-headline-lg mt-2 mb-4">The Nucleus</h3>
+                <p className="text-on-surface-variant max-w-md">Founded by a collective of designers and engineers who wanted to solve complex scaling issues for emerging startups.</p>
+              </div>
+            </div>
+            <div className="glass-panel rounded-lg p-10 bg-primary/5 border-primary/20 flex flex-col justify-between">
+              <Icon name="public" className="text-primary text-display-lg" />
+              <div>
+                <h3 className="font-display-lg text-headline-md mb-2">Global Expansion</h3>
+                <p className="text-on-surface-variant">2021 marked our expansion across three continents, serving over 500 enterprise clients.</p>
+              </div>
+            </div>
+            <div className="glass-panel rounded-lg p-10 flex flex-col items-center justify-center text-center">
+              <div className="text-primary font-display-lg text-display-lg mb-2"><CountUp end={99} suffix="%" /></div>
+              <p className="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Success Guarantee</p>
+              <p className="mt-4 text-body-md">Our methodology ensures ideas don&apos;t just launch&mdash;they thrive.</p>
+            </div>
+            <div className="md:col-span-2 glass-panel rounded-lg p-10 flex items-center justify-between overflow-hidden">
+              <div className="max-w-sm">
+                <h3 className="font-display-lg text-headline-md mb-2">The Orbit OS</h3>
+                <p className="text-on-surface-variant text-body-md">In 2023, we launched our proprietary internal management framework that revolutionizes how teams collaborate on complex digital architectures.</p>
+              </div>
+              <div className="w-48 h-48 rounded-full border-4 border-primary/10 flex items-center justify-center">
+                <div className="w-32 h-32 rounded-full border-2 border-primary/30 flex items-center justify-center animate-spin" style={{ animationDuration: '10s' }}>
+                  <div className="w-4 h-4 bg-primary rounded-full absolute -top-2" />
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="py-20 overflow-hidden">
+        <div className="max-w-container-max mx-auto px-margin-desktop">
+          <ScrollReveal>
+            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+              <div>
+                <h2 className="font-display-lg text-headline-lg">Meet The Visionaries</h2>
+                <p className="text-on-surface-variant mt-2">The architects of your next digital breakthrough.</p>
+              </div>
+              <div className="flex gap-4">
+                <button className="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-on-primary hover:border-primary transition-all">
+                  <Icon name="arrow_back" />
+                </button>
+                <button className="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-on-primary hover:border-primary transition-all">
+                  <Icon name="arrow_forward" />
+                </button>
+              </div>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal stagger={0.12} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+            {[
+              { name: 'Marcus Chen', role: 'Creative Strategist', color: 'from-primary/80' },
+              { name: 'Elena Rodriguez', role: 'Lead Architect', color: 'from-secondary/80' },
+              { name: 'Jordan Smith', role: 'Product Designer', color: 'from-primary/80' },
+              { name: 'Sarah Jenkins', role: 'Operations Lead', color: 'from-tertiary/80' },
+            ].map((member, i) => (
+              <div key={i} className="group">
+                <div className="aspect-[3/4] rounded-lg overflow-hidden glass-panel mb-4 relative">
+                  <div className="w-full h-full bg-surface-variant" />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${member.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6`}>
+                    <div className="flex gap-4">
+                      <a className="text-on-primary" href="#"><Icon name="alternate_email" /></a>
+                      <a className="text-on-primary" href="#"><Icon name="link" /></a>
+                    </div>
+                  </div>
+                </div>
+                <h4 className="font-display-lg text-headline-md">{member.name}</h4>
+                <p className="text-on-surface-variant text-label-md">{member.role}</p>
+              </div>
+            ))}
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <ScrollReveal>
+      <section className="py-32 relative">
+        <div className="max-w-container-max mx-auto px-margin-desktop relative z-10">
+          <div className="glass-panel rounded-lg p-16 md:p-24 text-center overflow-hidden relative">
+            <div className="orbital-glow absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-10" />
+            <h2 className="font-display-lg text-display-lg mb-6 relative z-10">Ready to <span className="text-primary">Orbit</span> Your Idea?</h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12 relative z-10">
+              Join our upcoming live strategy session to see how we transform concepts into market leaders. Exclusive insights, real-time auditing, and expert Q&amp;A.
             </p>
-          </div>
-          <div className="flex space-x-8">
-            <Link href="#" className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors duration-300">Privacy Policy</Link>
-            <Link href="#" className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors duration-300">Terms of Service</Link>
-            <Link href="#" className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors duration-300">Mission Log</Link>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center relative z-10">
+              <a href="/contact" className="group px-10 py-5 bg-primary text-on-primary rounded-xl font-headline-md text-headline-md flex items-center gap-4 hover:shadow-2xl hover:shadow-primary/40 transition-all">
+                Join Our Live Session
+                <Icon name="arrow_forward" className="group-hover:translate-x-1 transition-transform" />
+              </a>
+              <div className="flex -space-x-4">
+                {[1, 2, 3].map((j) => (
+                  <div key={j} className="w-12 h-12 rounded-full border-4 border-white bg-surface-dim overflow-hidden">
+                    <div className="w-full h-full bg-surface-variant" />
+                  </div>
+                ))}
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-[12px] border-4 border-white">
+                  +<CountUp end={1} />k
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </footer>
-
-      {/* Chatbot */}
-      <Chatbot />
+      </section>
+      </ScrollReveal>
+      <Footer />
+      <AgentChat />
     </div>
   );
 }

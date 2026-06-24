@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import { api } from '@/lib/api';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,17 +16,21 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    const supabase = createClient();
-    const { error: err } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (err) { setError(err.message); return; }
-    router.push('/admin');
+
+    try {
+      const res = await api.login(email, password);
+      api.setToken(res.access_token);
+      router.push('/admin');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Login failed');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <div className="min-h-screen bg-[#050510] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-indigo-600/20 border border-indigo-500/30 mb-4">
             <span className="text-indigo-400 text-xl">✦</span>
@@ -35,7 +39,6 @@ export default function LoginPage() {
           <p className="text-white/40 text-sm mt-1">Sign in to manage your content</p>
         </div>
 
-        {/* Card */}
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -64,7 +67,7 @@ export default function LoginPage() {
                 className="w-full px-4 py-2.5 bg-white/5 border border-white/15 rounded-lg text-white
                            placeholder:text-white/25 focus:outline-none focus:ring-2 focus:ring-indigo-500
                            focus:border-transparent transition-all"
-                placeholder="••••••••"
+                placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
               />
             </div>
 
@@ -80,13 +83,13 @@ export default function LoginPage() {
               className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold
                          transition-colors disabled:opacity-50 mt-2"
             >
-              {loading ? 'Signing in…' : 'Sign In'}
+              {loading ? 'Signing in\u2026' : 'Sign In'}
             </button>
           </form>
         </div>
 
         <p className="text-center text-white/25 text-xs mt-6">
-           <Link href="/" className="hover:text-white/50 transition-colors">← Back to site</Link>
+           <Link href="/" className="hover:text-white/50 transition-colors">\u2190 Back to site</Link>
         </p>
       </div>
     </div>

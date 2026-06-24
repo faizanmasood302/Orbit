@@ -1,505 +1,163 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Chatbot } from '@/components/ui/Chatbot';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { AgentChat } from '@/components/agent/AgentChat';
+import { ScrollReveal } from '@/components/anim/ScrollReveal';
+import { CountUp } from '@/components/anim/CountUp';
+import { Icon } from '@/components/ui/Icon';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<string | null>(null);
-  const bgExplorerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px',
-    };
-
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-          }
-        });
-      },
-      observerOptions
-    );
-
-    document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
-
-    const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      const scrollPercent =
-        scrolled / (document.documentElement.scrollHeight - viewportHeight);
-
-      if (bgExplorerRef.current) {
-        const scale = 1 + scrollPercent * 0.5;
-        const opacity = Math.max(0.2, 1 - scrollPercent * 1.2);
-        const rotate = scrollPercent * 45;
-        const translateY = scrollPercent * 100;
-
-        bgExplorerRef.current.style.transform = `translateY(${-translateY}px) scale(${scale}) rotate(${rotate}deg)`;
-        bgExplorerRef.current.style.opacity = String(opacity);
-      }
-
-      const nav = document.querySelector('nav');
-      if (nav) {
-        if (scrolled > 50) {
-          nav.classList.add('py-3', 'bg-[#121212]/80');
-          nav.classList.remove('py-5', 'bg-[#121212]/40');
-        } else {
-          nav.classList.remove('py-3', 'bg-[#121212]/80');
-          nav.classList.add('py-5', 'bg-[#121212]/40');
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      revealObserver.disconnect();
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <div className="bg-background text-on-background selection:bg-primary-container selection:text-black">
-      {/* Top Navigation */}
-      <nav className="fixed top-0 w-full z-[100] bg-[#121212]/40 backdrop-blur-[30px] border-b border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] transition-all duration-500 py-5">
-        <div className="flex justify-between items-center px-8 md:px-16 max-w-[1440px] mx-auto">
-          <Link
-            href="/"
-            className="text-2xl font-black tracking-tighter text-[#00f2ff] drop-shadow-[0_0_10px_rgba(0,242,255,0.8)]"
-          >
-            ORBIT
-          </Link>
-          <div className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/about"
-              onClick={() => setActiveTab('about')}
-              className={`font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold transition-all duration-300 ${
-                activeTab === 'about' 
-                  ? 'text-[#00f2ff] border-t-2 border-[#00f2ff] pt-1' 
-                  : 'text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]'
-              }`}
-            >
-              About
-            </Link>
-            <Link
-              href="/offerings"
-              onClick={() => setActiveTab('offerings')}
-              className={`font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold transition-all duration-300 ${
-                activeTab === 'offerings' 
-                  ? 'text-[#00f2ff] border-t-2 border-[#00f2ff] pt-1' 
-                  : 'text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]'
-              }`}
-            >
-              Offerings
-            </Link>
-            <Link
-              href="/stories"
-              onClick={() => setActiveTab('stories')}
-              className={`font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold transition-all duration-300 ${
-                activeTab === 'stories' 
-                  ? 'text-[#00f2ff] border-t-2 border-[#00f2ff] pt-1' 
-                  : 'text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]'
-              }`}
-            >
-              Stories
-            </Link>
-            <Link
-              href="/connect"
-              onClick={() => setActiveTab('connect')}
-              className={`font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold transition-all duration-300 ${
-                activeTab === 'connect' 
-                  ? 'text-[#00f2ff] border-t-2 border-[#00f2ff] pt-1' 
-                  : 'text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]'
-              }`}
-            >
-              Connect
-            </Link>
-            <Link
-              href="/impact"
-              onClick={() => setActiveTab('impact')}
-              className={`font-['Space_Grotesk'] tracking-widest uppercase text-xs font-bold transition-all duration-300 ${
-                activeTab === 'impact' 
-                  ? 'text-[#00f2ff] border-t-2 border-[#00f2ff] pt-1' 
-                  : 'text-white/60 hover:text-[#00f2ff] hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)]'
-              }`}
-            >
-              Impact
-            </Link>
-          </div>
-          <div className="flex items-center space-x-6 text-[#00f2ff]">
-            <button className="hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-all">
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
-                language
-              </span>
-            </button>
-            <button className="hover:drop-shadow-[0_0_8px_rgba(0,242,255,0.5)] transition-all">
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 0" }}>
-                settings
-              </span>
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Persistent Interactive Background Explorer */}
-      <div
-        ref={bgExplorerRef}
-        className="fixed inset-0 flex items-center justify-center pointer-events-none z-0 bg-particles overflow-hidden"
-        id="background-explorer"
-      >
-        <div className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full border border-white/5 sphere-glow bg-surface-container-lowest/40 backdrop-blur-[2px] flex items-center justify-center">
-          <div className="w-[70%] h-[70%] rounded-full border border-primary-container/10 border-dashed animate-spin [animation-duration:120s]" />
-          <div className="absolute w-[90%] h-[90%] rounded-full border border-white/5 animate-spin [animation-direction:reverse] [animation-duration:180s]" />
-
-          <div className="absolute top-[15%] left-[-5%] group cursor-pointer flex items-center pointer-events-auto">
-            <div className="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_15px_#00f2ff]" />
-            <div className="h-[1px] w-12 hotspot-line ml-2" />
-            <div className="hidden md:block bg-[#121212]/40 backdrop-blur-[20px] border border-white/10 px-3 py-1 font-label-caps text-[10px] text-on-background group-hover:border-primary-container group-hover:text-primary-container transition-all ml-2">
-              CORE_01
+    <div className="bg-surface text-on-surface min-h-screen">
+      <Navbar />
+      <main className="relative pt-32 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] pointer-events-none -z-10 orbital-glow" />
+        <div className="absolute top-40 right-0 w-[600px] h-[600px] bg-secondary-container/5 blur-[120px] rounded-full -z-10" />
+        <div className="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+          <ScrollReveal className="lg:col-span-6 space-y-8">
+            <div className="space-y-4">
+              <h1 className="font-black text-[clamp(2.25rem,5.5vw,112px)] leading-none tracking-tighter text-on-surface">
+                Creating The<br />
+                Perfect Approach<br />
+                To <span className="text-gradient">Marketing</span>
+              </h1>
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                More than just storing ideas. Letting you have the best business outcome. Overflow yourself with ideas and cutting-edge digital execution.
+              </p>
             </div>
-          </div>
-
-          <div className="absolute bottom-[20%] right-[-10%] group cursor-pointer flex items-center flex-row-reverse pointer-events-auto">
-            <div className="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_15px_#00f2ff]" />
-            <div className="h-[1px] w-20 hotspot-line mr-2 rotate-180" />
-            <div className="hidden md:block bg-[#121212]/40 backdrop-blur-[20px] border border-white/10 px-3 py-1 font-label-caps text-[10px] text-on-background group-hover:border-primary-container group-hover:text-primary-container transition-all mr-2">
-              NODE_74
+            <div className="flex flex-wrap items-center gap-8">
+              <Link href="/contact" className="group flex items-center gap-3 font-label-md text-label-md text-primary">
+                <span className="flex items-center justify-center w-10 h-10 rounded-full border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  <Icon name="play_arrow" className="text-[20px]" />
+                </span>
+                Join Our Live Session
+              </Link>
             </div>
-          </div>
-
-          <div className="absolute top-1/2 left-10 -translate-y-1/2 flex flex-col space-y-4 opacity-20 font-label-caps text-[10px] tracking-widest text-on-background">
-            <p>LAT: 45.9281° N</p>
-            <p>LON: 12.0934° E</p>
-            <p>ALT: 324,000M</p>
-            <p>SYS: OPERATIONAL</p>
-          </div>
-
-          <div className="absolute top-1/2 right-10 -translate-y-1/2 flex flex-col space-y-4 opacity-20 font-label-caps text-[10px] tracking-widest text-on-background text-right">
-            <p>TEMP: -122°C</p>
-            <p>RAD: LOW</p>
-            <p>SIG: 98%</p>
-            <p>VEL: 7.6 KM/S</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Scrollable Content */}
-      <main className="relative z-10">
-        {/* Hero Section */}
-        <section
-          className="h-screen flex flex-col items-center justify-center px-16 text-center"
-          id="about"
-        >
-          <div className="reveal active">
-            <p className="font-label-caps text-primary-container tracking-[0.4em] mb-4">
-              FRONTIER EXPLORATION
-            </p>
-            <h1 className="font-h1 text-5xl md:text-8xl mb-6 tracking-tighter">
-              BEYOND THE<br />
-              VISIBLE SPECTRUM
-            </h1>
-            <p className="font-body-lg text-white/50 max-w-xl mx-auto mb-8">
-              Deploying next-generation autonomous clusters to map the deep silence of the
-              outer rim.
-            </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-              <button className="px-8 py-3 bg-primary-container text-black font-label-caps text-xs tracking-widest hover:bg-white transition-all">
-                INITIATE MISSION
-              </button>
-              <button className="px-8 py-3 border border-white/20 text-white font-label-caps text-xs tracking-widest hover:border-primary-container hover:text-primary-container transition-all backdrop-blur-md">
-                VIEW TELEMETRY
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* Deep Space Mission Section */}
-        <section
-          className="min-h-screen flex flex-col justify-center py-32 px-8 md:px-32"
-          id="mission"
-        >
-          <div className="max-w-[1440px] mx-auto w-full">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-              <div className="reveal scroll-fade">
-                <p className="font-label-caps text-primary-container tracking-[0.4em] mb-6">
-                  01 // MISSION STATEMENT
-                </p>
-                <h2 className="font-h1 text-4xl md:text-7xl mb-8 leading-[1.1]">
-                  ARCHITECTING THE<br />
-                  NEBULA VOID.
-                </h2>
-                <p className="font-body-lg text-white/60 mb-10 leading-relaxed">
-                  ORBIT is not just a mission; it&apos;s a permanent infrastructure
-                  in the dark. We establish autonomous nodes that think, react, and
-                  learn from the cosmos in real-time, providing unprecedented data
-                  resolution from the edge of the known universe.
-                </p>
-                <div className="flex items-center space-x-12">
-                  <div>
-                    <p className="font-h3 text-primary-container">4.2M</p>
-                    <p className="font-label-caps text-[10px] text-white/40">
-                      LIGHT YEARS MAPPED
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-h3 text-primary-container">12k+</p>
-                    <p className="font-label-caps text-[10px] text-white/40">
-                      AUTONOMOUS NODES
-                    </p>
-                  </div>
-                </div>
+            <ScrollReveal delay={0.3} className="glass-card p-8 rounded-lg inline-flex flex-col gap-2 relative">
+              <div className="absolute -top-3 -left-3 w-6 h-6 bg-primary rounded-full border-4 border-surface flex items-center justify-center">
+                <div className="w-1 h-1 bg-white rounded-full" />
               </div>
-
-              <div className="reveal scroll-fade stagger-1">
-                <div className="aspect-square border border-white/10 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/10 to-transparent" />
+              <div className="flex items-baseline gap-2">
+                <span className="font-display-lg text-headline-lg text-primary"><CountUp end={99} suffix="%" /></span>
+              </div>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-[240px]">
+                Success Rates Guarantee. We create the base of your business.
+              </p>
+              <Link href="/contact" className="text-primary font-bold underline decoration-primary/30 underline-offset-4 hover:decoration-primary transition-all">
+                Get a Live Demo
+              </Link>
+            </ScrollReveal>
+          </ScrollReveal>
+          <div className="lg:col-span-6 relative flex justify-center items-center">
+            <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center">
+              <div className="relative z-10 w-full h-full float-animation">
+                <div className="w-full h-full rounded-full glass-card inner-glow relative flex items-center justify-center overflow-hidden border-white/40">
                   <img
-                    alt="Space"
-                    className="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjOh_YEHswRHjRgliTVq3O3FDDrrkz9Y2zluuiL8OABzCZDbM78kfaakR52ko6K2LZiwARMGA9CBpHBFr-BjGvUoBaHiLoC_5VyjL9DFPcyRaOJfRFNkn8qgRfB7NeK9TE5R2yb5c9CLWPpiECZ8KLLVpEbFXmQp7YzAJLzNGN78Xxuas_QD3OPuoaaPvdWjnIrSgHEEGLgbin2AegMT9YR8R_9IB0Bvj_r_AcRfnoHhfBLolHujGg4NQFjYxVL7UfkTx5EvBWfU8"
+                    className="w-[110%] h-[110%] object-cover opacity-90 mix-blend-multiply"
+                    alt="Abstract 3D glass orb"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsMbsIz9LdsUcg0ewacxe0a4crjru1PyA5rOBFeBjNSbkXSqe5aVMSXVVMkNf8k5Q4LPWPif26lrSXtqOK51QZLZlDoE5r_m2iwDP_W6_N7nuoiRSXnShQ1bFbxsMSQ2I6q7z4YEJU7AQlHqNDSIGehlGN4dPQOY_WunwTVr_lmacwyKDO8vlnjJ3pzbeD1UXTluBocDhCdluqZLuSIIHX0HCf3MkpCOH1rs7qy7esdVWTxfOqQJ2XgPfrvMIwAy_hhlsiDeEtBYE"
                   />
-                  <div className="absolute bottom-8 left-8">
-                    <span className="font-label-caps text-[10px] px-3 py-1 bg-black/80 border border-primary-container/30">
-                      IMG_REF: VOID_SCAN_001
-                    </span>
-                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Technical Specs Section */}
-        <section
-          className="min-h-screen py-32 px-8 md:px-16 bg-surface-container-lowest/30 backdrop-blur-sm"
-          id="specs"
-        >
-          <div className="max-w-[1440px] mx-auto">
-            <div className="mb-20 reveal scroll-fade">
-              <p className="font-label-caps text-primary-container tracking-[0.4em] mb-4">
-                02 // TECHNICAL ARCHITECTURE
-              </p>
-              <h2 className="font-h2">CORE SPECIFICATIONS</h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Spec Card 1 */}
-              <div className="glow-card p-10 flex flex-col justify-between aspect-square reveal scroll-fade">
-                <div>
-                  <span className="material-symbols-outlined text-primary-container text-4xl mb-6">
-                    memory
-                  </span>
-                  <h3 className="font-h3 mb-4">Quantum Processing</h3>
-                  <p className="font-body-md text-white/50">
-                    Next-gen qubit arrays for local data processing at sub-zero
-                    temperatures.
-                  </p>
-                </div>
-                <div className="pt-6 border-t border-white/5 font-label-caps text-[10px] text-primary-container">
-                  99.9% UPTIME
-                </div>
+              <div className="absolute -right-8 top-1/4 z-20 glass-card px-4 py-2 rounded-full flex items-center gap-2 animate-bounce transition-all duration-[3000ms] delay-700">
+                <Icon name="hub" className="text-primary text-[18px]" />
+                <span className="font-label-md text-label-md">Transforming solutions</span>
               </div>
-
-              {/* Spec Card 2 */}
-              <div className="glow-card p-10 flex flex-col justify-between aspect-square reveal scroll-fade stagger-1">
-                <div>
-                  <span className="material-symbols-outlined text-primary-container text-4xl mb-6">
-                    sensors
-                  </span>
-                  <h3 className="font-h3 mb-4">Neural Sensing</h3>
-                  <p className="font-body-md text-white/50">
-                    Hyperspectral imaging clusters capable of detecting organic signatures
-                    across light years.
-                  </p>
-                </div>
-                <div className="pt-6 border-t border-white/5 font-label-caps text-[10px] text-primary-container">
-                    0.1ms LATENCY
-                  </div>
+              <div className="absolute -right-16 top-1/2 z-20 glass-card px-4 py-2 rounded-full flex items-center gap-2 animate-pulse transition-all duration-[4000ms]">
+                <Icon name="lightbulb" className="text-secondary text-[18px]" />
+                <span className="font-label-md text-label-md">Inspire the masses</span>
               </div>
-
-              {/* Spec Card 3 */}
-              <div className="glow-card p-10 flex flex-col justify-between aspect-square reveal scroll-fade stagger-2">
-                <div>
-                  <span className="material-symbols-outlined text-primary-container text-4xl mb-6">
-                    shield
-                  </span>
-                  <h3 className="font-h3 mb-4">Hull Integrity</h3>
-                  <p className="font-body-md text-white/50">
-                    Graphene-infused plating engineered to withstand micrometeorite
-                    impacts and solar flares.
-                  </p>
-                </div>
-                <div className="pt-6 border-t border-white/5 font-label-caps text-[10px] text-primary-container">
-                  LEVEL 5 PROTECTION
-                </div>
+              <div className="absolute -right-4 bottom-1/4 z-20 glass-card px-4 py-2 rounded-full flex items-center gap-2">
+                <Icon name="verified_user" className="text-on-surface-variant text-[18px]" />
+                <span className="font-label-md text-label-md">Commitment of trust</span>
+              </div>
+              <div className="absolute inset-0 scale-125 opacity-20 -z-10 rotate-12">
+                <img
+                  className="w-full h-full object-contain"
+                  alt="Topography wireframe"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgqsI_Ysg7UJDoPxoHahr14h5nEDpEmm_aML-XnuZmV7eIa-6XxhfmnSMa9qUOGpM1GY1im-yzco0StzIK-mTA2IqZplmCd5XjZzh_dBP7byPFq6t4-8-1I_wjv4ITgbmvQHn2wIW6dusHHhK2eu8k6pddYjzPhpKMBl7sKePrRtIf3-uQ6nG6rUpfGGVyBsb7YJYeQW2WvRbnzMJ6tA75ExEthPgNflSSrzNEYevtc3JV93KYA5OaMPXnLZpuxt0g_YUgpaNn9y4"
+                />
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Global Network Section */}
-        <section
-          className="min-h-screen flex flex-col justify-center py-32 px-8 md:px-16 overflow-hidden"
-          id="network"
-        >
-          <div className="max-w-[1440px] mx-auto w-full relative">
-            <div className="reveal scroll-fade text-center mb-20">
-              <p className="font-label-caps text-primary-container tracking-[0.4em] mb-4">
-                03 // GLOBAL NETWORK
-              </p>
-              <h2 className="font-h1 text-4xl md:text-7xl">UNIFIED COMMAND.</h2>
-            </div>
-
-            <div className="relative h-[400px] border border-white/5 flex items-center justify-center reveal scroll-fade">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,242,255,0.05)_0%,transparent_70%)]" />
-              <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-60">
-                <div className="text-center group">
-                  <p className="font-label-caps text-xs text-white/40 mb-2 group-hover:text-primary-container transition-colors">
-                    OSLO_STATION
-                  </p>
-                  <p className="font-h2 text-2xl md:text-4xl">60.4° N</p>
-                </div>
-                <div className="text-center group">
-                  <p className="font-label-caps text-xs text-white/40 mb-2 group-hover:text-primary-container transition-colors">
-                    SYDNEY_ARRAY
-                  </p>
-                  <p className="font-h2 text-2xl md:text-4xl">33.8° S</p>
-                </div>
-                <div className="text-center group">
-                  <p className="font-label-caps text-xs text-white/40 mb-2 group-hover:text-primary-container transition-colors">
-                    MOJAVE_HUB
-                  </p>
-                  <p className="font-h2 text-2xl md:text-4xl">35.0° N</p>
-                </div>
-                <div className="text-center group">
-                  <p className="font-label-caps text-xs text-white/40 mb-2 group-hover:text-primary-container transition-colors">
-                    TOKYO_UPLINK
-                  </p>
-                  <p className="font-h2 text-2xl md:text-4xl">35.6° N</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Connect Section */}
-        <section
-          className="min-h-[60vh] flex flex-col items-center justify-center py-32 px-8"
-          id="connect"
-        >
-          <div className="max-w-2xl text-center reveal scroll-fade">
-            <h2 className="font-h2 mb-6">READY TO JOIN THE ORBIT?</h2>
-            <p className="font-body-lg text-white/50 mb-10">
-              Register for mission updates and access the real-time telemetry feed.
-            </p>
-            <form className="w-full flex flex-col md:flex-row gap-4">
-              <input
-                className="flex-1 bg-surface-container-high/50 border-white/10 focus:border-primary-container focus:ring-0 text-white font-label-caps py-4 px-6"
-                placeholder="ENCRYPTED_EMAIL_ADDRESS"
-                type="email"
-              />
-              <button
-                className="bg-primary-container text-black font-label-caps px-10 py-4 hover:bg-white transition-all"
-                type="submit"
-              >
-                ESTABLISH_LINK
-              </button>
-            </form>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="py-12 border-t border-white/5 bg-background relative z-20">
-        <div className="flex flex-col md:flex-row justify-between items-center px-16 max-w-[1440px] mx-auto gap-8">
-          <span className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/40 hover:text-[#00f2ff] transition-colors cursor-default">
-            © 2024 ORBIT DEEP SPACE EXPLORATION
-          </span>
-          <div className="flex space-x-8">
-            <Link
-              href="#"
-              className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="#"
-              className="font-['Space_Grotesk'] text-[10px] tracking-[0.2em] uppercase text-white/30 hover:text-[#00f2ff] transition-colors"
-            >
-              Mission Log
-            </Link>
           </div>
         </div>
-      </footer>
-
-      {/* Chatbot */}
-      <Chatbot />
-
-      <style jsx global>{`
-        .sphere-glow {
-          box-shadow: 0 0 100px rgba(0, 242, 255, 0.2),
-            inset 0 0 50px rgba(0, 242, 255, 0.4);
-        }
-        .bg-particles {
-          background-image: radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.03) 0%, transparent 50%);
-        }
-        .hotspot-line {
-          background: linear-gradient(
-            90deg,
-            rgba(0, 242, 255, 0.8) 0%,
-            transparent 100%
-          );
-        }
-        .reveal {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal.active {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .stagger-1 {
-          transition-delay: 0.1s;
-        }
-        .stagger-2 {
-          transition-delay: 0.2s;
-        }
-        .stagger-3 {
-          transition-delay: 0.3s;
-        }
-        .glow-card {
-          background: rgba(18, 19, 26, 0.6);
-          border: 1px solid rgba(0, 242, 255, 0.1);
-          border-radius: 0.5rem;
-          transition: all 0.3s ease;
-        }
-        .glow-card:hover {
-          border-color: rgba(0, 242, 255, 0.5);
-          box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
-        }
-        #background-explorer {
-          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-            opacity 0.5s ease;
-        }
-      `}</style>
+        <ScrollReveal>
+          <section className="mt-40 mb-20 px-margin-desktop max-w-container-max mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-end">
+            <div className="lg:col-span-4 flex flex-col items-center">
+              <div className="w-full aspect-square relative mb-8">
+                <div className="w-full h-full glass-card rounded-lg flex items-center justify-center p-8 overflow-hidden group">
+                  <img
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
+                    alt="Abstract 3D glass sculpture"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0vzZP1qLar2FQBimHvjh7I40fbjpfjC-bKwrcdP18fsqJN_fhgmUJhZ0NSJjjVTdjiOXY8c3JWPFWe-kw_KaIfhLno9ce6j8h7xDofozG5cDnJBjtyPvlF-9GhdWMxcL5weMTRD58Q1QUONjbtiRRAKIKXW6UsO6mSuYlfAP4mZLmbN61S1n99VKFOeZhiYPM6sGy4nQS8ol_OI3BiqIfKC1lSfNqrwFwX4CBVtwAa0q7KPrhmyJ76iHMhi3Xra6IKF00agWcfSs"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-4 w-full">
+                <div className="flex -space-x-4">
+                  <div className="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover"
+                      alt="Team member"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPDe1JoMVNzVMeFE089ZaF-qLl99gv6jKjYHGKJ--HfpvHwWUKkof8dVYVpBVLNiIgtBEXFJsq7IKAmLqfR8gZcVTwY4zz2xt6c14rDGVUzqAV3cM9dd81ZWu1x0liukUIRYGc7AmZISCI34l2j4I-Jd12hDZfFom-OnOOxr_qqMnIJ50eZSUDrsNV0c7H5dZG75FdKhjz4wm5Ukl4MvRJDN2u00aNofJZNaccG6OYKBjb185H00oyskeO6BudVmwz42mN3jxv4Go"
+                    />
+                  </div>
+                  <div className="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover"
+                      alt="Team member"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfS8MyZIE1d94Yjc5pBO-qg3-42L3_hsRTyj9eSQ43j2dSbtknKLHdO6VacBlkKGWfGCp2CNLHHWMvL8SJl8o27mlfRl4jPAxmZC5M2bUdnUYDTzwBI6z2ROCLyyiyVRMVVNYOod4j3GfGixeLsCwUFikeUKuA3W8atNqP2V5sdHb9BAZo4SfGdq60mZ47OCS34x-saKCu8dwX7mw9Xr11yHBupeysHFz_tg8YXmkEFsMQ5r4oJKq1UP6pUmVK3xf1-FFFbb_qxmY"
+                    />
+                  </div>
+                  <div className="w-10 h-10 rounded-full border-2 border-surface overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover"
+                      alt="Team member"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbG9XtWfG9zbPWsJxq9KVMeTELb2N5xC-0VB5qcOVmkxofMmUH4ZWkrXtBrF_kjDTw4P5ARfmjhHz2XWF5kopBHDnsTr7D5fx9fYkCJ-9Jtl1Ky6syfUXn8M-vxh6dyBz2a2Dhww9NNUKazfh3E-WzjmDpVqDy_neUF6bnQT957lfUvRsGc9Sb9Ap1I-iypPf9EWPiCIm-zQ2bcDcg1mU51WOtDV_swCEIMVSWkx06zIMJA8h4LhlYOnXrFwibM3OyZAi8fpYlm6U"
+                    />
+                  </div>
+                </div>
+                <p className="font-label-md text-[13px] text-on-surface-variant leading-tight">
+                  100+ guided solutions covering <br /> growth and success ratio of your business.
+                </p>
+              </div>
+            </div>
+            <div className="lg:col-span-4">
+              <div className="glass-card p-10 rounded-lg space-y-8">
+                <div className="flex flex-wrap gap-3">
+                  {['Crypto', 'Web Application', 'Data', 'Analysis', 'SEO', 'Management', 'Social Media'].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-5 py-2 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-primary hover:text-white transition-all cursor-default"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="space-y-3">
+                  <h3 className="font-headline-md text-headline-md text-on-surface">Our Excellent Services</h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant">
+                    The research your brand needs. Advertise anything. Brilliance is our business model for modern growth.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="lg:col-span-4 space-y-6 pb-4">
+              <div className="flex items-center gap-3 text-primary">
+                <Icon name="rocket_launch" fill />
+                <span className="font-label-md text-label-md uppercase tracking-wider">Concept is what we do</span>
+              </div>
+              <h2 className="font-headline-lg text-headline-lg text-on-surface leading-tight">
+                Organizing Your Ideas For Your Next Venture
+              </h2>
+            </div>
+          </div>
+        </section>
+        </ScrollReveal>
+      </main>
+      <Footer />
+      <AgentChat />
     </div>
   );
 }

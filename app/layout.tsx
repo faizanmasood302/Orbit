@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-plus-jakarta-sans',
 });
 
 export const metadata: Metadata = {
@@ -20,10 +20,12 @@ export const metadata: Metadata = {
   },
 };
 
+import ToasterProvider from '@/components/ToasterProvider';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`} data-theme="dark">
-      <body className="h-full font-sans">{children}</body>
+    <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`} data-theme="light">
+      <body className="h-full font-body-md text-on-surface bg-surface">{children}<ToasterProvider /></body>
     </html>
   );
 }
